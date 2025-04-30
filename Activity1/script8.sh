@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 echo -n "Introduce tu nombre de usuario: "
 read username
 

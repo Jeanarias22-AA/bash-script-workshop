@@ -1,0 +1,73 @@
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-30 12:25 EDT
+Pre-scan script results:
+| broadcast-avahi-dos: 
+|   Discovered hosts:
+|     224.0.0.251
+|   After NULL UDP avahi packet DoS (CVE-2011-1002).
+|_  Hosts are all up (not vulnerable).
+Stats: 0:00:39 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 93.86% done; ETC: 12:25 (0:00:00 remaining)
+Stats: 0:00:39 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 94.74% done; ETC: 12:25 (0:00:00 remaining)
+Stats: 0:00:39 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 94.74% done; ETC: 12:25 (0:00:00 remaining)
+Stats: 0:00:39 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 94.74% done; ETC: 12:25 (0:00:00 remaining)
+Stats: 0:04:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:29 (0:00:06 remaining)
+Stats: 0:04:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:29 (0:00:06 remaining)
+Stats: 0:04:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:29 (0:00:06 remaining)
+Stats: 0:04:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:29 (0:00:06 remaining)
+Stats: 0:04:27 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:29 (0:00:06 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:06:59 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:07:00 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:07:00 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:07:00 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:32 (0:00:10 remaining)
+Stats: 0:08:51 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:34 (0:00:13 remaining)
+Stats: 0:08:52 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.37% done; ETC: 12:34 (0:00:13 remaining)
+Nmap scan report for 10.1.10.36
+Host is up (0.0035s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-enum: 
+|_  /cacti/: Cacti Web Monitoring
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       http://ha.ckers.org/slowloris/
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+
+Nmap done: 1 IP address (1 host up) scanned in 545.20 seconds

@@ -23,8 +23,8 @@ while true; do
 
     if [[ $jugador == $maquina ]]; then
         echo "Empate"
-    elif [[ ($jugador == "rock" && $maquina == "scissors") || \
-            ($jugador == "scissors" && $maquina == "paper") || \
+    elif [[ ($jugador == "rock" && $maquina == "scissors") or \
+            ($jugador == "scissors" && $maquina == "paper") or \
             ($jugador == "paper" && $maquina == "rock") ]]; then
         echo "Ganaste"
     else

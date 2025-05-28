@@ -1,52 +1,52 @@
 #!/bin/bash
 
-REMOTE_USER="administrador"
-REMOTE_HOST="192.168.1.98"
+USER="administrador"
+HOST="192.168.1.98"
 SSH_OPTS="-o StrictHostKeyChecking=no"
 
 trap 'echo "Interrupción detectada. Saliendo.."; exit 1' INT TERM
 
-# Funciones
+
 
 check_cpu() {
     echo ">> Uso de CPU:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "top -bn1 | grep 'Cpu(s)'"
+    ssh $SSH_OPTS $USER@$HOST "top -bn1 | grep 'Cpu(s)'"
 }
 
 check_ram() {
     echo ">> Uso de RAM:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "free -h"
+    ssh $SSH_OPTS $USER@$HOST "free -h"
 }
 
 check_disk() {
     echo ">> Uso de Disco:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "df -h"
+    ssh $SSH_OPTS $USER@$HOST "df -h"
 }
 
 check_services() {
     echo ">> Servicios activos:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "systemctl list-units --type=service --state=running"
+    ssh $SSH_OPTS $USER@$HOST "systemctl list-units --type=service --state=running"
 }
 
 check_ports() {
     echo ">> Puertos abiertos:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "which netstat || sudo apt update && sudo apt install -y net-tools"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "netstat -tuln"
+    ssh $SSH_OPTS $USER@$HOST "which netstat || sudo apt update && sudo apt install -y net-tools"
+    ssh $SSH_OPTS $USER@$HOST "netstat -tuln"
 }
 
 check_processes() {
     echo ">> Procesos en ejecución:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "ps aux"
+    ssh $SSH_OPTS $USER@$HOST "ps aux"
 }
 
 check_files() {
     echo ">> Archivos clave:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST "[ -f /etc/passwd ] && echo 'Existe /etc/passwd' || echo 'No se encuentra /etc/passwd'"
+    ssh $SSH_OPTS $USER@$HOST "[ -f /etc/passwd ] && echo 'Existe /etc/passwd' || echo 'No se encuentra /etc/passwd'"
 }
 
 backup_info() {
     echo ">> Backup de informacion:"
-    ssh $SSH_OPTS $REMOTE_USER@$REMOTE_HOST << EOF > "backup_$(date +%F).txt"
+    ssh $SSH_OPTS $USER@$HOST << EOF > "backup_$(date +%F).txt"
 uname -a
 lscpu
 df -h
@@ -102,7 +102,7 @@ main() {
         read -p "Presiona Enter para continuar..."
     done
 }
-
+#aplicamos el siguiente if para que el cront en la maquina local pueda automaticamente llamar a la funcion check_all, para realizar una monitorizacion general.
 if [[ "$1" == "--auto" ]]; then
     check_all
 else

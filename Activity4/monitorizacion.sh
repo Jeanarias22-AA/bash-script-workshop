@@ -8,38 +8,38 @@ trap 'echo "Interrupción detectada. Saliendo.."; exit 1' INT TERM
 
 
 
-check_cpu() {
+cpu() {
     echo ">> Uso de CPU:"
     ssh $SSH_OPTS $USER@$HOST "top -bn1 | grep 'Cpu(s)'"
 }
 
-check_ram() {
+ram() {
     echo ">> Uso de RAM:"
     ssh $SSH_OPTS $USER@$HOST "free -h"
 }
 
-check_disk() {
+disk() {
     echo ">> Uso de Disco:"
     ssh $SSH_OPTS $USER@$HOST "df -h"
 }
 
-check_services() {
+services() {
     echo ">> Servicios activos:"
     ssh $SSH_OPTS $USER@$HOST "systemctl list-units --type=service --state=running"
 }
 
-check_ports() {
+ports() {
     echo ">> Puertos abiertos:"
     ssh $SSH_OPTS $USER@$HOST "which netstat || sudo apt update && sudo apt install -y net-tools"
     ssh $SSH_OPTS $USER@$HOST "netstat -tuln"
 }
 
-check_processes() {
+processes() {
     echo ">> Procesos en ejecución:"
     ssh $SSH_OPTS $USER@$HOST "ps aux"
 }
 
-check_files() {
+files() {
     echo ">> Archivos clave:"
     ssh $SSH_OPTS $USER@$HOST "[ -f /etc/passwd ] && echo 'Existe /etc/passwd' || echo 'No se encuentra /etc/passwd'"
 }
@@ -56,13 +56,13 @@ EOF
 }
 check_all() {
     echo "MONITORIZACION COMPLETA"
-    check_cpu
-    check_ram
-    check_disk
-    check_services
-    check_ports
-    check_processes
-    check_files
+    cpu
+    ram
+    disk
+    services
+    ports
+    processes
+    files
     backup_info
     echo "-----------------------"
 }
@@ -86,13 +86,13 @@ main() {
         read -p "Elige una opcion: " opcion
         echo ""
 	case $opcion in
-            1) check_cpu ;;
-            2) check_ram ;;
-            3) check_disk ;;
-            4) check_services ;;
-            5) check_ports ;;
-            6) check_processes ;;
-	    7) check_files;;
+            1) cpu ;;
+            2) ram ;;
+            3) disk ;;
+            4) services ;;
+            5) ports ;;
+            6) processes ;;
+	    7) files;;
 	    8) backup_info;;
 	    9) check_all;;
             0) echo "Saliendo..."; exit 0 ;;

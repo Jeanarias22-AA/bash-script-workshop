@@ -44,7 +44,7 @@ files() {
     ssh $SSH_OPTS $USER@$HOST "[ -f /etc/passwd ] && echo 'Existe /etc/passwd' || echo 'No se encuentra /etc/passwd'"
 }
 
-backup_info() {
+backup() {
     echo ">> Backup de informacion:"
     ssh $SSH_OPTS $USER@$HOST << EOF > "backup_$(date +%F).txt"
 uname -a
@@ -63,7 +63,7 @@ check_all() {
     ports
     processes
     files
-    backup_info
+    backup
     echo "-----------------------"
 }
 
@@ -92,10 +92,10 @@ main() {
             4) services ;;
             5) ports ;;
             6) processes ;;
-	    7) files;;
-	    8) backup_info;;
-	    9) check_all;;
-            0) echo "Saliendo..."; exit 0 ;;
+	    7) files ;;
+	    8) backup ;;
+	    9) check_all ;;
+            0) echo "Adios..."; exit 0 ;;
             *) echo "Opción no válida." ;;
         esac
         echo ""

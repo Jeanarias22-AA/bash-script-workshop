@@ -26,7 +26,7 @@ Script que:
 ### 1.Configurar conexión SSH sin contraseña
 Desde la máquina local, se tiene que ejecutar lo siguiente:
 
-### Lo que hara los siguientes comandos si es tu caso es generar una clave
+Lo que hara los siguientes comandos si es tu caso es generar una clave
 una clave ssh para que puedas pasarla al servidor y poder siempre autenticarse sin tene que 
 solicitar la contraseña.
 ```bash

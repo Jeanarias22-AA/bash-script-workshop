@@ -1,6 +1,6 @@
 # Final Countdown - Monitorización Remota en Bash
 
-Este proyecto de scripting Bash simula el trabajo de un administrador de sistemas que necesita monitorizar un servidor remoto desde su máquina local. Contiene funcionalidades completas de chequeo, backup, ejecución programada con `cron` y presentación visual profesional.
+Este proyecto de scripting en Bash está diseñado para simular el trabajo de un administrador de sistemas que necesita monitorear un servidor remoto desde su computadora local. Incluye funciones completas para chequeo, respaldo, programación con (cron).
 
 ---
 

@@ -1,61 +1,72 @@
 #!/bin/bash
 
+# En esta configuracion hay que cambiar la ip del host ya que no siempre tendremos la misma ip al igual
+# que el user por si cambiamos de maquina servidor.
 USER="administrador"
 HOST="192.168.1.98"
 SSH_OPTS="-o StrictHostKeyChecking=no"
 
-trap 'echo "Interrupción detectada. Saliendo.."; exit 1' INT TERM
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # Sin color
+
+
+trap 'echo -e "${RED}Interrupción detectada. Saliendo...${NC}"; exit 1' INT TERM
 
 
 
 cpu() {
-    echo ">> Uso de CPU:"
+    echo -e "${CYAN}>> Uso de CPU:${NC}"
     ssh $SSH_OPTS $USER@$HOST "top -bn1 | grep 'Cpu(s)'"
 }
 
 ram() {
-    echo ">> Uso de RAM:"
+    echo -e "${CYAN}>> Uso de RAM:${NC}"
     ssh $SSH_OPTS $USER@$HOST "free -h"
 }
 
 disk() {
-    echo ">> Uso de Disco:"
+    echo -e "${CYAN}>> Uso de Disco:${NC}"
     ssh $SSH_OPTS $USER@$HOST "df -h"
 }
 
 services() {
-    echo ">> Servicios activos:"
+    echo -e "${CYAN}>> Servicios activos:${NC}"
     ssh $SSH_OPTS $USER@$HOST "systemctl list-units --type=service --state=running"
 }
 
 ports() {
-    echo ">> Puertos abiertos:"
+    echo -e "${CYAN}>> Puertos abiertos:${NC}"
     ssh $SSH_OPTS $USER@$HOST "which netstat || sudo apt update && sudo apt install -y net-tools"
     ssh $SSH_OPTS $USER@$HOST "netstat -tuln"
 }
 
 processes() {
-    echo ">> Procesos en ejecución:"
+    echo -e "${CYAN}>> Procesos en ejecución:${NC}"
     ssh $SSH_OPTS $USER@$HOST "ps aux"
 }
 
 files() {
-    echo ">> Archivos clave:"
+    echo -e "${CYAN}>> Archivos clave:${NC}"
     ssh $SSH_OPTS $USER@$HOST "[ -f /etc/passwd ] && echo 'Existe /etc/passwd' || echo 'No se encuentra /etc/passwd'"
 }
 
 backup() {
-    echo ">> Backup de informacion:"
-    ssh $SSH_OPTS $USER@$HOST << EOF > "backup_$(date +%F).txt"
+    echo -e "${YELLOW}>> Backup de información:${NC}"
+    ssh -T $SSH_OPTS $USER@$HOST << EOF > "backup_$(date +%F).txt"
 uname -a
 lscpu
 df -h
 free -h
 EOF
-    echo "Backup guardado como backup_$(date +%F).txt"
+    echo -e "${GREEN}Backup guardado como backup_$(date +%F).txt${NC}"
 }
+
 check_all() {
-    echo "MONITORIZACION COMPLETA"
+    echo -e "${YELLOW}------------MONITORIZACIÓN COMPLETA ----------${NC}"
     cpu
     ram
     disk
@@ -64,39 +75,40 @@ check_all() {
     processes
     files
     backup
-    echo "-----------------------"
+    echo -e "${YELLOW}---------------------------------------------${NC}"
 }
 
 
 main() {
     while true; do
-	clear
-	echo "--------- MENU DE MONITORIZACION REMOTA --------"
+        clear
+        echo -e "${GREEN}-----------MENU DE MONITORIZACION REMOTA -----------${NC}"
+        echo -e "${CYAN}Fecha y hora: $(date)${NC}"
         echo "1) Ver uso de CPU"
         echo "2) Ver uso de RAM"
         echo "3) Ver uso de Disco"
         echo "4) Ver servicios activos"
         echo "5) Ver puertos abiertos"
-        echo "6) Ver procesos en ejecucion"
-	echo "7) Ver archivos clave"
-	echo "8) Backup de informacion"
-	echo "9) Monitorizacion completa"
+        echo "6) Ver procesos en ejecución"
+        echo "7) Ver archivos clave"
+        echo "8) Realizar Backup"
+        echo "9) Monitorización completa"
         echo "0) Salir"
-        echo "------------------------------------------------"
-        read -p "Elige una opcion: " opcion
+        echo -e "${GREEN}---------------------------------------------------${NC}"
+        read -p "Elige una opción: " opcion
         echo ""
-	case $opcion in
+        case $opcion in
             1) cpu ;;
             2) ram ;;
             3) disk ;;
             4) services ;;
             5) ports ;;
             6) processes ;;
-	    7) files ;;
-	    8) backup ;;
-	    9) check_all ;;
-            0) echo "Adios..."; exit 0 ;;
-            *) echo "Opción no válida." ;;
+            7) files ;;
+            8) backup ;;
+            9) check_all ;;
+            0) echo -e "${GREEN}¡Hasta luego!${NC}"; exit 0 ;;
+            *) echo -e "${RED}Opción no válida.${NC}" ;;
         esac
         echo ""
         read -p "Presiona Enter para continuar..."

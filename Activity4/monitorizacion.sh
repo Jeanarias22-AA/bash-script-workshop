@@ -2,8 +2,8 @@
 
 # En esta configuracion hay que cambiar la ip del host ya que no siempre tendremos la misma ip al igual
 # que el user por si cambiamos de maquina servidor.
-USER="administrador"
-HOST="192.168.1.98"
+USER="juan"
+HOST="10.1.82.112"
 SSH_OPTS="-o StrictHostKeyChecking=no"
 
 
